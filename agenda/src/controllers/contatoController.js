@@ -33,9 +33,9 @@ exports.editIndex = async (req, res) => {
 
   const contato = await Contato.buscaPorId(req.params.id);
   
-  if (!contato) return res.render('404');  // Verifica se "contato" existe
+  if (!contato) return res.render('404');  
 
-  res.render('contato', { contato });  // Corrige o caminho da view
+  res.render('contato', { contato });  
 };
 
 exports.edit = async (req, res) => {
@@ -44,19 +44,19 @@ exports.edit = async (req, res) => {
     
     // Instanciar o contato e editar
     const contato = new Contato(req.body);
-    await contato.edit(req.params.id);  // Certifique-se de que o método edit existe no modelo
+    await contato.edit(req.params.id);  
   
     if (contato.errors.length > 0) {
       req.flash('errors', contato.errors);
       req.session.save(() => {
-        res.redirect(`/contato/index/${req.params.id}`);  // Ajuste para voltar ao formulário de edição
+        res.redirect(`/contato/index/${req.params.id}`);  
       });
       return;
     }
   
     req.flash('success', 'Contato editado com sucesso');
     req.session.save(() => {
-      res.redirect(`/contato/index/${contato.contato._id}`);  // Ajuste para a rota correta
+      res.redirect(`/contato/index/${contato.contato._id}`);  
     });
     return;
   } catch (error) {
